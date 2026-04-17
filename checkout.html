@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Seoul Bite</title>
+    <!-- CSS files -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <img src="../Assets/logo.svg" alt="Seoul Bite Logo" id="logo">
+                <span class="brand-name">Seoul Bite</span>
+            </a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="products.html">Menu</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main id="main-content" class="checkout-container">
+
+        <div class="page-header">
+            <h1>Checkout</h1>
+            <p>Review your order and complete your details below</p>
+        </div>
+
+        <!-- ========================================================
+             SECTION 4a: ORDER SUMMARY
+             Show a summary of the shopping cart with the total cost.
+             ======================================================== -->
+        <div class="checkout-section" id="order-summary-section">
+            <h3>Order Summary</h3>
+            <div id="order-items">
+                <!-- Populated by JS: displayOrderSummary() -->
+            </div>
+            <div class="summary-totals">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="summary-subtotal">J$0</span>
+                </div>
+                <div class="summary-row discount-row">
+                    <span>Discount (10%)</span>
+                    <span id="summary-discount">- J$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>GCT (15%)</span>
+                    <span id="summary-tax">J$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span id="summary-delivery">J$0</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total to Pay</span>
+                    <span id="summary-total">J$0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================
+             SECTION 4b: SHIPPING DETAILS
+             Allow the user to enter their shipping details.
+             ======================================================== -->
+        <div class="checkout-section">
+            <h3>Shipping Details</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    <div class="error-message" id="fullName-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" placeholder="e.g. 876-555-0123" required>
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Delivery Address *</label>
+                <textarea id="address" rows="3" placeholder="Enter your street address" required></textarea>
+                <div class="error-message" id="address-error"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="parish">Parish *</label>
+                    <select id="parish" required>
+                        <option value="">Select Parish</option>
+                        <option value="Kingston">Kingston</option>
+                        <option value="St. Andrew">St. Andrew</option>
+                        <option value="St. Catherine">St. Catherine</option>
+                        <option value="Clarendon">Clarendon</option>
+                        <option value="Manchester">Manchester</option>
+                        <option value="St. Elizabeth">St. Elizabeth</option>
+                        <option value="Westmoreland">Westmoreland</option>
+                        <option value="Hanover">Hanover</option>
+                        <option value="St. James">St. James</option>
+                        <option value="Trelawny">Trelawny</option>
+                        <option value="St. Ann">St. Ann</option>
+                        <option value="St. Mary">St. Mary</option>
+                        <option value="Portland">Portland</option>
+                        <option value="St. Thomas">St. Thomas</option>
+                    </select>
+                    <div class="error-message" id="parish-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="amountPaid">Amount Being Paid (J$) *</label>
+                    <input type="number" id="amountPaid" placeholder="Enter amount tendered" min="0" required>
+                    <div class="error-message" id="amountPaid-error"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="instructions">Delivery Instructions (Optional)</label>
+                <input type="text" id="instructions" placeholder="e.g. Gate code, nearest landmark">
+            </div>
+        </div>
+
+        <!-- ========================================================
+             PAYMENT METHOD
+             ======================================================== -->
+        <div class="checkout-section">
+            <h3>Payment Method</h3>
+            <div class="payment-options">
+                <label class="payment-option selected">
+                    <input type="radio" name="payment" value="cod" checked>
+                    <span>💵 Cash on Delivery</span>
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="card">
+                    <span>💳 Credit / Debit Card</span>
+                </label>
+            </div>
+
+            <!-- Card details - hidden until card is selected -->
+            <div id="card-details" class="hidden">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number *</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="23">
+                        <div class="error-message" id="cardNumber-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardName">Cardholder Name *</label>
+                        <input type="text" id="cardName" placeholder="Name on card">
+                        <div class="error-message" id="cardName-error"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry Date *</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                        <div class="error-message" id="expiry-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV *</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                        <div class="error-message" id="cvv-error"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================
+             SECTION 4c/d/e: ACTION BUTTONS
+             Confirm button - confirms the checkout
+             Cancel button  - go back to the cart
+             ======================================================== -->
+        <div class="cart-actions">
+            <!-- 4e: Cancel button goes back to cart -->
+            <a href="cart.html" class="btn btn-secondary" id="cancel-btn">← Back to Cart</a>
+            <!-- 4d: Confirm button confirms the checkout -->
+            <button class="btn btn-gold" id="confirm-btn" onclick="confirmCheckout()">Confirm Order</button>
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+         ORDER CONFIRMED MODAL
+         Shown after successful checkout (invoice generated)
+         ============================================================ -->
+    <div class="modal-overlay" id="confirmation-modal">
+        <div class="modal" style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 10px;">🎉</div>
+            <h2 style="color: #2e7d32; margin-bottom: 10px;">Order Confirmed!</h2>
+            <p style="color: #5a3535; margin-bottom: 8px;">Thank you for your order.</p>
+            <p style="color: #5a3535; margin-bottom: 8px;">
+                Invoice Number: <strong id="invoice-number-display" style="color: #800020;"></strong>
+            </p>
+            <!-- Optional email sent message (Section 5c) -->
+            <p id="email-sent-msg" style="color: #2e7d32; font-style: italic; margin-bottom: 20px;">
+                ✉️ A copy of your invoice has been sent to your email.
+            </p>
+            <button class="btn btn-primary" id="done-btn" style="margin-top: 10px;">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" role="alert"></div>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/checkout.js"></script>
+
+</body>
+</html>
